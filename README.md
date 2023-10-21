@@ -1,4 +1,4 @@
-# ☁ qhweather 
+# ☁ QHWeather 
 ### Simple flutter app for weather using [open-meteo](https://open-meteo.com/) Api, Ui adapted from [Adin Yanuar](https://dribbble.com/shots/15323804-Weather-Conceptual-App-Design)
 
 ### Packages used in project:
