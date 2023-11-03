@@ -15,8 +15,8 @@ import 'package:qhweather/view/screens/widget/snackbar.dart';
 class WeatherProvider extends ChangeNotifier {
   bool _isLoading = true;
   var _todayWeather = [];
-  double _currentLat = 0.0; // Default latitude
-  double _currentLong = 0.0; // Default longitude
+  num _currentLat = 0.0; // Default latitude
+  num _currentLong = 0.0; // Default longitude
   WeatherModel? _weatherFromApi;
   final List _hourlyWeather = [];
   final DateTime nowTime = DateTime.now();
@@ -66,9 +66,12 @@ class WeatherProvider extends ChangeNotifier {
     _hourlyWeather.clear();
     _threeDaysWeather.clear();
 
+    DateTime currentHour = nowTime;
+    DateTime lastHour = nowTime.add(Duration(hours: 24));
+
     for (var hour in hourlyInstance.time) {
       DateTime parsedHour = DateTime.parse(hour);
-      if (parsedHour.day == nowTime.day) {
+      if (parsedHour.isAfter(currentHour) && parsedHour.isBefore(lastHour)) {
         _hourlyWeather.add([
           parsedHour,
           hourlyInstance.temperature2M[hourIndex],
@@ -132,7 +135,7 @@ class WeatherProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  WeatherCodeModel getWeatherCode(double code) {
+  WeatherCodeModel getWeatherCode(num code) {
     for (var item in weatherCodeConstant) {
       if (item.weatherCode == code) {
         return item;
@@ -141,7 +144,7 @@ class WeatherProvider extends ChangeNotifier {
     return weatherCodeConstant[0];
   }
 
-  void changeCurrentCountry(BuildContext context, double lat, double long,
+  void changeCurrentCountry(BuildContext context, num lat, num long,
       String locationName) async {
     _currentLat = lat;
     _currentLong = long;
@@ -153,14 +156,14 @@ class WeatherProvider extends ChangeNotifier {
     await setWeather();
   }
 
-  bool checkLatLong(double lat, double long) {
-    if (doubleParse(lat) == doubleParse(_currentLat) &&
-        doubleParse(long) == doubleParse(_currentLong)) {
+  bool checkLatLong(num lat, num long) {
+    if (numParse(lat) == numParse(_currentLat) &&
+        numParse(long) == numParse(_currentLong)) {
       return true;
     }
     return false;
   }
 
-  double doubleParse(double doubleToParse) =>
-      double.parse(doubleToParse.toStringAsFixed(0));
+  num numParse(num numToParse) =>
+      num.parse(numToParse.toStringAsFixed(0));
 }

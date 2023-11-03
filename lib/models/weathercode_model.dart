@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class WeatherCodeModel {
-  double weatherCode;
+  num weatherCode;
   String name;
   IconData iconData;
   WeatherCodeModel(

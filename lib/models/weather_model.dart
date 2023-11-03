@@ -37,10 +37,10 @@ class WeatherModel {
   DailyUnits dailyUnits;
   Daily daily;
   String? cityName;
-  int? airQualityIndex;
+  var airQualityIndex;
   String? weatherDescription;
-  int? temperature;
-  int? feelsLike;
+  var temperature;
+  var feelsLike;
   String? weatherIcon;
 
   factory WeatherModel.fromJson(Map<String, dynamic> json) => WeatherModel(
@@ -101,7 +101,7 @@ class Daily {
 
   factory Daily.fromJson(Map<String, dynamic> json) => Daily(
         time: List<DateTime>.from(json["time"].map((x) => DateTime.parse(x))),
-        weathercode: List<num>.from(json["weathercode"].map((x) => x)),
+        weathercode: List<num>.from(json["weathercode"].map((x) => x.toDouble())),
         temperature2MMax:
             List<num>.from(json["temperature_2m_max"].map((x) => x.toDouble())),
         temperature2MMin:
@@ -112,7 +112,7 @@ class Daily {
             json["apparent_temperature_min"].map((x) => x.toDouble())),
         sunrise: List<String>.from(json["sunrise"].map((x) => x)),
         sunset: List<String>.from(json["sunset"].map((x) => x)),
-        rainSum: List<num>.from(json["rain_sum"].map((x) => x)),
+        rainSum: List<num>.from(json["rain_sum"].map((x) => x.toDouble())),
         windspeed10MMax:
             List<num>.from(json["windspeed_10m_max"].map((x) => x.toDouble())),
       );
@@ -120,19 +120,19 @@ class Daily {
   Map<String, dynamic> toJson() => {
         "time": List<dynamic>.from(time.map((x) =>
             "${x.year.toString().padLeft(4, '0')}-${x.month.toString().padLeft(2, '0')}-${x.day.toString().padLeft(2, '0')}")),
-        "weathercode": List<dynamic>.from(weathercode.map((x) => x)),
+        "weathercode": List<dynamic>.from(weathercode.map((x) => x.toDouble())),
         "temperature_2m_max":
-            List<dynamic>.from(temperature2MMax.map((x) => x)),
+            List<dynamic>.from(temperature2MMax.map((x) => x.toDouble())),
         "temperature_2m_min":
-            List<dynamic>.from(temperature2MMin.map((x) => x)),
+            List<dynamic>.from(temperature2MMin.map((x) => x.toDouble())),
         "apparent_temperature_max":
-            List<dynamic>.from(apparentTemperatureMax.map((x) => x)),
+            List<dynamic>.from(apparentTemperatureMax.map((x) => x.toDouble())),
         "apparent_temperature_min":
-            List<dynamic>.from(apparentTemperatureMin.map((x) => x)),
+            List<dynamic>.from(apparentTemperatureMin.map((x) => x.toDouble())),
         "sunrise": List<dynamic>.from(sunrise.map((x) => x)),
         "sunset": List<dynamic>.from(sunset.map((x) => x)),
-        "rain_sum": List<dynamic>.from(rainSum.map((x) => x)),
-        "windspeed_10m_max": List<dynamic>.from(windspeed10MMax.map((x) => x)),
+        "rain_sum": List<dynamic>.from(rainSum.map((x) => x.toDouble())),
+        "windspeed_10m_max": List<dynamic>.from(windspeed10MMax.map((x) => x.toDouble())),
       };
 }
 
@@ -200,16 +200,16 @@ class Hourly {
   List<num> weathercode;
 
   factory Hourly.fromJson(Map<String, dynamic> json) => Hourly(
-        time: List<String>.from(json["time"].map((x) => x)),
+        time: List<String>.from(json["time"].map((x) => x.toDouble())),
         temperature2M:
             List<num>.from(json["temperature_2m"].map((x) => x.toDouble())),
-        weathercode: List<num>.from(json["weathercode"].map((x) => x)),
+        weathercode: List<num>.from(json["weathercode"].map((x) => x.toDouble())),
       );
 
   Map<String, dynamic> toJson() => {
         "time": List<dynamic>.from(time.map((x) => x)),
-        "temperature_2m": List<dynamic>.from(temperature2M.map((x) => x)),
-        "weathercode": List<dynamic>.from(weathercode.map((x) => x)),
+        "temperature_2m": List<dynamic>.from(temperature2M.map((x) => x.toDouble())),
+        "weathercode": List<dynamic>.from(weathercode.map((x) => x.toDouble())),
       };
 }
 

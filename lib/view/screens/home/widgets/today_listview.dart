@@ -21,7 +21,7 @@ class TodayListviewBuilderWidget extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
           String time = DateFormat.jm().format(hourlyWeather[index][0]);
-          double temp = hourlyWeather[index][1];
+          num temp = hourlyWeather[index][1];
           WeatherCodeModel? weatherCodeModel =
               weatherProvider.getWeatherCode(hourlyWeather[index][2]);
           return Container(

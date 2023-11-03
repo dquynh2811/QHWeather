@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:qhweather/models/weather_model.dart';
 
 class WeatherService {
-  static Future<WeatherModel> getWeather(double lat, double long) async {
+  static Future<WeatherModel> getWeather(num lat, num long) async {
     final apiKey = '3caa956ea38981ef704576231f49607b'; // Thay thế bằng khóa API của bạn
 
     final urlWeatherDetails = Uri.parse(

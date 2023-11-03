@@ -14,8 +14,8 @@ class TomarrowWeatherRowWidget extends StatelessWidget {
       : super(key: key);
   final DateTime title;
   final IconData icon;
-  final double maxTemp;
-  final double minTemp;
+  final num maxTemp;
+  final num minTemp;
   @override
   Widget build(BuildContext context) {
     return Padding(
