@@ -43,8 +43,8 @@ class HomeAppbarRowWidget extends StatelessWidget {
         ),
         const SizedBox(width: 30),
         Container(
-          width: 90,  // Tăng chiều rộng
-          height: 90,  // Tăng chiều cao
+          // width: 90,  // Tăng chiều rộng
+          // height: 90,  // Tăng chiều cao
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(45),  // Bỏ góc vuông
             boxShadow: [  // Thêm bóng đổ cho biểu tượng
