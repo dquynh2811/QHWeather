@@ -200,7 +200,7 @@ class Hourly {
   List<num> weathercode;
 
   factory Hourly.fromJson(Map<String, dynamic> json) => Hourly(
-        time: List<String>.from(json["time"].map((x) => x.toDouble())),
+        time: List<String>.from(json["time"].map((x) => x)),
         temperature2M:
             List<num>.from(json["temperature_2m"].map((x) => x.toDouble())),
         weathercode: List<num>.from(json["weathercode"].map((x) => x.toDouble())),

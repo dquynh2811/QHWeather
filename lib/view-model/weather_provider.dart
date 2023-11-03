@@ -157,13 +157,13 @@ class WeatherProvider extends ChangeNotifier {
   }
 
   bool checkLatLong(num lat, num long) {
-    if (numParse(lat) == numParse(_currentLat) &&
-        numParse(long) == numParse(_currentLong)) {
+    if (doubleParse(lat) == doubleParse(_currentLat) &&
+        doubleParse(long) == doubleParse(_currentLong)) {
       return true;
     }
     return false;
   }
 
-  num numParse(num numToParse) =>
-      num.parse(numToParse.toStringAsFixed(0));
+  double doubleParse(num doubleToParse) =>
+      double.parse(doubleToParse.toStringAsFixed(0));
 }
