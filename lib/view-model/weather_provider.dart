@@ -23,6 +23,7 @@ class WeatherProvider extends ChangeNotifier {
   final Map<DateTime, List> _dailyWeather = {};
   final List _threeDaysWeather = [];
   List<CountryModel> _searchedListCountries = countriesConstants;
+  List<String> _favoriteCities = [];
 
   WeatherProvider() {
     getLocationFromGPS();
@@ -53,6 +54,24 @@ class WeatherProvider extends ChangeNotifier {
       setLoading = false;
     }
     notifyListeners();
+  }
+
+  get favoriteCities => _favoriteCities;
+
+  void addToFavorites(String city) {
+    if (!_favoriteCities.contains(city)) {
+      _favoriteCities.add(city);
+      notifyListeners();
+    }
+  }
+
+  void removeFromFavorites(String city) {
+    _favoriteCities.remove(city);
+    notifyListeners();
+  }
+
+  bool isFavorite(String city) {
+    return _favoriteCities.contains(city);
   }
 
   void fetchDayAndData(WeatherModel loadedWeather) {

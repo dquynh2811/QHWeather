@@ -6,6 +6,7 @@ import 'package:qhweather/view/screens/main_screen.dart';
 import 'package:qhweather/view/screens/search/search_screen.dart';
 import 'package:qhweather/view/screens/settings/setting_screen.dart';
 import 'package:qhweather/view/screens/splash/splash_screen.dart';
+import 'package:qhweather/view/screens/favorite_cities_screen.dart';
 
 class AppRouter {
   final List screens = [
@@ -14,7 +15,7 @@ class AppRouter {
     const SettingScreen(),
   ];
 
-  static MaterialPageRoute generateRoute(RouteSettings settings) {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case splashRoute:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
@@ -27,6 +28,9 @@ class AppRouter {
 
       case settingRoute:
         return MaterialPageRoute(builder: (_) => const SettingScreen());
+
+      case favoriteCitiesRoute:  // Add this case for the FavoriteCitiesScreen
+        return MaterialPageRoute(builder: (_) => FavoriteCitiesScreen());
 
       default:
         return MaterialPageRoute(

@@ -1,11 +1,12 @@
+// home_appbar.dart
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qhweather/config/colors.dart';
 import 'package:qhweather/models/weather_model.dart';
-import 'package:qhweather/models/weathercode_model.dart';
 import 'package:qhweather/utils/align_constants.dart';
+import 'package:qhweather/view-model/theme_provider.dart';
 import 'package:qhweather/view-model/weather_provider.dart';
-import 'package:qhweather/view/screens/widget/weather_status.dart';
 
 class HomeAppbarRowWidget extends StatelessWidget {
   const HomeAppbarRowWidget({Key? key}) : super(key: key);
@@ -14,6 +15,7 @@ class HomeAppbarRowWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     WeatherProvider weatherProvider = Provider.of<WeatherProvider>(context);
     WeatherModel weatherModel = weatherProvider.getLoadedWeather;
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
 
     return Row(
       children: [
@@ -21,7 +23,24 @@ class HomeAppbarRowWidget extends StatelessWidget {
           padding: elementAlignment,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [              
+            children: [
+                IconButton(
+                  icon: Icon(
+                    weatherProvider.isFavorite(weatherModel.cityName ?? "")
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                  ),
+                  onPressed: () {
+                    String? cityName = weatherModel.cityName;
+                    if (cityName != null) {
+                      if (weatherProvider.isFavorite(cityName)) {
+                        weatherProvider.removeFromFavorites(cityName);
+                      } else {
+                        weatherProvider.addToFavorites(cityName);
+                      }
+                    }
+                  },
+                ),
               Text(
                 weatherModel.cityName ?? "Unknown City",
                 style: Theme.of(context).textTheme.headlineMedium,
@@ -43,11 +62,9 @@ class HomeAppbarRowWidget extends StatelessWidget {
         ),
         const SizedBox(width: 30),
         Container(
-          // width: 90,  // Tăng chiều rộng
-          // height: 90,  // Tăng chiều cao
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(45),  // Bỏ góc vuông
-            boxShadow: [  // Thêm bóng đổ cho biểu tượng
+            borderRadius: BorderRadius.circular(45),
+            boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.5),
                 spreadRadius: 3,
@@ -58,9 +75,10 @@ class HomeAppbarRowWidget extends StatelessWidget {
           ),
           child: Image.network(
             "https://openweathermap.org/img/w/${weatherModel.weatherIcon ?? 'unknown'}.png",
-            fit: BoxFit.cover,  // Đảm bảo biểu tượng luôn vừa vặn với không gian đã định
+            fit: BoxFit.cover,
           ),
-        )
+        ),
+        
       ],
     );
   }
