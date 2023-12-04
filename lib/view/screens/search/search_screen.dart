@@ -85,19 +85,19 @@ class SearchScreen extends StatelessWidget {
                         children: [
                           Text(
                             place.name,
-                            style: TextStyle(
-                              fontSize: 16, // Kích thước chữ lớn hơn
-                              color: Colors.black, // Màu chữ tối hơn
-                              fontWeight: FontWeight.bold, // Chữ in đậm
+                            style: themeData.textTheme.bodyMedium?.copyWith(
+                              fontSize: 16, // Adjust the font size as needed
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
                             place.display_name,
-                            style: TextStyle(
-                              fontSize: 12, // Kích thước chữ nhỏ hơn
-                              color: Colors.grey[700], // Màu chữ nhạt hơn
+                            style: themeData.textTheme.bodyMedium?.copyWith(
+                              fontSize: 12, // Adjust the font size as needed
+                              color: Colors.grey[700],
                             ),
                           ),
+
                         ],
                       ),
                       shape: RoundedRectangleBorder(

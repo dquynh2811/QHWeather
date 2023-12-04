@@ -53,11 +53,13 @@ class SettingScreen extends StatelessWidget {
                 ),
                 child: Text(
                   "Favorite cities",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.normal,
-                  ),
+                  style: themeData.textTheme.bodyMedium,
+                  // style: TextStyle(
+                  //
+                  //   fontSize: 16,
+                  //   color: themeData.backgroundColor,
+                  //   fontWeight: FontWeight.normal,
+                  // ),
                 ),
               ),
             ),
