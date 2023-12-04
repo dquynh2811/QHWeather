@@ -6,15 +6,17 @@ import 'package:qhweather/config/themes.dart';
 import 'package:qhweather/view-model/theme_provider.dart';
 import 'package:qhweather/view-model/weather_provider.dart';
 
-void main() => runApp(
-      MultiProvider(
-        providers: [
-          ListenableProvider<WeatherProvider>(create: (_) => WeatherProvider()),
-          ListenableProvider<ThemeProvider>(create: (_) => ThemeProvider()),
-        ],
-        child: const MyApp(),
-      ),
-    );
+void main() async {
+  runApp(
+    MultiProvider(
+      providers: [
+        ListenableProvider<WeatherProvider>(create: (_) => WeatherProvider()),
+        ListenableProvider<ThemeProvider>(create: (_) => ThemeProvider())
+      ],
+      child: const MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

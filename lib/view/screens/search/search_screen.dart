@@ -1,10 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qhweather/config/colors.dart';
-import 'package:qhweather/models/country_model.dart';
+import 'package:qhweather/models/place_model.dart';
 import 'package:qhweather/utils/align_constants.dart';
 import 'package:qhweather/view-model/weather_provider.dart';
+
+import '../../../models/place_model.dart';
+import '../../../service/places_service.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -21,7 +26,11 @@ class SearchScreen extends StatelessWidget {
           builder: (context, weatherNotifier, child) => Column(
             children: [
               TextField(
-                onChanged: (value) => weatherNotifier.searchCountry(value),
+                onChanged: (value) async {
+                  final places = await searchPlaces('YOUR_API_KEY', value);
+                  // print(places);
+                  weatherNotifier.setSearchedListCountries(places);
+                },
                 style: themeData.textTheme.headlineSmall,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -49,7 +58,7 @@ class SearchScreen extends StatelessWidget {
                   fillColor: themeData.backgroundColor,
                   filled: true,
                   prefixIconColor: utilsColors.lightSelectedIconColor,
-                  hintText: "Search Your Country",
+                  hintText: "Search Your place",
                   hintStyle: themeData.textTheme.headlineSmall,
                   prefixIcon: Icon(
                     CupertinoIcons.search,
@@ -60,26 +69,36 @@ class SearchScreen extends StatelessWidget {
               const SizedBox(height: 10),
               Expanded(
                 child: ListView.separated(
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 10),
+                  separatorBuilder: (context, index) => const SizedBox(height: 10),
                   physics: const BouncingScrollPhysics(),
                   itemCount: weatherNotifier.searchedListCountries.length,
                   itemBuilder: (BuildContext context, int index) {
-                    CountryModel country =
-                        weatherNotifier.searchedListCountries[index];
-                    bool isLatLong =
-                        weatherNotifier.checkLatLong(country.lat, country.long);
+                    PlaceModel place = weatherNotifier.searchedListCountries[index];
+                    bool isLatLong = weatherNotifier.checkLatLong(place.lat, place.long);
 
                     return ListTile(
-                      onTap: () => weatherNotifier.changeCurrentCountry(
-                          context, country.lat, country.long, country.name),
-                      tileColor: isLatLong
-                          ? Colors.green[300]
-                          : themeData.backgroundColor,
+                      onTap: () => weatherNotifier.changeCurrentPlace(context, place),
+                      tileColor: isLatLong ? Colors.green[300] : themeData.backgroundColor,
                       minVerticalPadding: 10,
-                      title: Text(
-                        country.name,
-                        style: themeData.textTheme.headlineSmall,
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            place.name,
+                            style: TextStyle(
+                              fontSize: 16, // Kích thước chữ lớn hơn
+                              color: Colors.black, // Màu chữ tối hơn
+                              fontWeight: FontWeight.bold, // Chữ in đậm
+                            ),
+                          ),
+                          Text(
+                            place.display_name,
+                            style: TextStyle(
+                              fontSize: 12, // Kích thước chữ nhỏ hơn
+                              color: Colors.grey[700], // Màu chữ nhạt hơn
+                            ),
+                          ),
+                        ],
                       ),
                       shape: RoundedRectangleBorder(
                         side: BorderSide(
@@ -88,28 +107,80 @@ class SearchScreen extends StatelessWidget {
                         ),
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      trailing: Container(
-                        width: 25,
-                        height: 25,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 1.5,
-                          ),
-                        ),
-                        child: isLatLong
-                            ? const Center(
-                                child: Icon(
-                                  Icons.check_rounded,
-                                  color: Colors.black,
-                                ),
-                              )
-                            : null,
-                      ),
+                      // trailing: Container(
+                      //   width: 25,
+                      //   height: 25,
+                      //   decoration: BoxDecoration(
+                      //     borderRadius: BorderRadius.circular(40),
+                      //     border: Border.all(
+                      //       color: Colors.grey,
+                      //       width: 1.5,
+                      //     ),
+                      //   ),
+                      //   child: isLatLong
+                      //       ? const Center(
+                      //     child: Icon(
+                      //       Icons.check_rounded,
+                      //       color: Colors.black,
+                      //     ),
+                      //   )
+                      //       : null,
+                      // ),
                     );
                   },
-                ),
+                )
+
+                // child: ListView.separated(
+                //   separatorBuilder: (context, index) =>
+                //   const SizedBox(height: 10),
+                //   physics: const BouncingScrollPhysics(),
+                //   itemCount: weatherNotifier.searchedListCountries.length,
+                //   itemBuilder: (BuildContext context, int index) {
+                //     PlaceModel place =
+                //     weatherNotifier.searchedListCountries[index];
+                //     bool isLatLong =
+                //     weatherNotifier.checkLatLong(place.lat, place.long);
+                //
+                //     return ListTile(
+                //       onTap: () => weatherNotifier.changeCurrentPlace(
+                //           context, place),
+                //       tileColor: isLatLong
+                //           ? Colors.green[300]
+                //           : themeData.backgroundColor,
+                //       minVerticalPadding: 10,
+                //       title: Text(
+                //         place.display_name,
+                //         style: themeData.textTheme.headlineSmall,
+                //       ),
+                //       shape: RoundedRectangleBorder(
+                //         side: BorderSide(
+                //           color: themeData.backgroundColor,
+                //           width: 1,
+                //         ),
+                //         borderRadius: BorderRadius.circular(20),
+                //       ),
+                //       trailing: Container(
+                //         width: 25,
+                //         height: 25,
+                //         decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(40),
+                //           border: Border.all(
+                //             color: Colors.grey,
+                //             width: 1.5,
+                //           ),
+                //         ),
+                //         child: isLatLong
+                //             ? const Center(
+                //           child: Icon(
+                //             Icons.check_rounded,
+                //             color: Colors.black,
+                //           ),
+                //         )
+                //             : null,
+                //       ),
+                //     );
+                //   },
+                // ),
               )
             ],
           ),
