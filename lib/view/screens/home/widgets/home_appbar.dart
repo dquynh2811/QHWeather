@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qhweather/config/colors.dart';
+import 'package:qhweather/models/place_model.dart';
 import 'package:qhweather/models/weather_model.dart';
 import 'package:qhweather/utils/align_constants.dart';
 import 'package:qhweather/view-model/theme_provider.dart';
@@ -25,18 +26,23 @@ class HomeAppbarRowWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
                 IconButton(
+
                   icon: Icon(
+
                     weatherProvider.isFavorite(weatherModel.cityName ?? "")
                         ? Icons.favorite
                         : Icons.favorite_border,
                   ),
                   onPressed: () {
-                    String? cityName = weatherModel.cityName;
+                    String cityName = weatherModel.cityName;
+                    num? lat = weatherModel.latitude;
+                    num? lon = weatherModel.longitude;
+                    PlaceModel? city = PlaceModel(cityName, "", lat, lon);
                     if (cityName != null) {
                       if (weatherProvider.isFavorite(cityName)) {
-                        weatherProvider.removeFromFavorites(cityName);
+                        weatherProvider.removeFromFavorites(city);
                       } else {
-                        weatherProvider.addToFavorites(cityName);
+                        weatherProvider.addToFavorites(city);
                       }
                     }
                   },

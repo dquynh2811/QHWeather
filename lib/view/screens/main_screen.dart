@@ -22,9 +22,9 @@ class MainScreenState extends State<MainScreen> {
       _selectedScreenIndex = index;
 
       // Add logic to navigate to the FavoriteCitiesScreen
-      if (_selectedScreenIndex == 2) {
-        Navigator.of(context).pushNamed(favoriteCitiesRoute);
-      }
+      // if (_selectedScreenIndex == 2) {
+      //   Navigator.of(context).pushNamed(favoriteCitiesRoute);
+      // }
     });
   }
 
