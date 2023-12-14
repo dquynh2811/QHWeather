@@ -1,16 +1,11 @@
-import 'dart:io';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:qhweather/config/router/router_constants.dart';
-import 'package:qhweather/models/country_model.dart';
 import 'package:qhweather/models/weather_model.dart';
 import 'package:qhweather/models/weathercode_model.dart';
 import 'package:qhweather/service/weather_service.dart'; // Ensure this import is correct
 import 'package:qhweather/utils/recentSearchPlaces.dart';
-import 'package:qhweather/service/weather_service.dart';  // Ensure this import is correct
-import 'package:qhweather/utils/country_constants.dart';
 import 'package:qhweather/utils/weathercode_constants.dart';
 import 'package:qhweather/view/screens/widget/snackbar.dart';
 
@@ -85,7 +80,9 @@ class WeatherProvider extends ChangeNotifier {
   }
 
   void removeFromFavorites(PlaceModel city) {
-    _favoriteCities.remove(city);
+    _favoriteCities.removeWhere(
+          (c) => c.lat == city.lat && c.long == city.long && c.name == city.name
+    );
     notifyListeners();
   }
 
