@@ -78,7 +78,9 @@ class SearchScreen extends StatelessWidget {
 
                     return ListTile(
                       onTap: () => weatherNotifier.changeCurrentPlace(context, place),
-                      tileColor: isLatLong ? Colors.green[300] : themeData.backgroundColor,
+                      // tileColor: isLatLong ? Colors.green[300] : themeData.backgroundColor,
+                      tileColor: themeData.backgroundColor,
+
                       minVerticalPadding: 10,
                       title: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,80 +109,10 @@ class SearchScreen extends StatelessWidget {
                         ),
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      // trailing: Container(
-                      //   width: 25,
-                      //   height: 25,
-                      //   decoration: BoxDecoration(
-                      //     borderRadius: BorderRadius.circular(40),
-                      //     border: Border.all(
-                      //       color: Colors.grey,
-                      //       width: 1.5,
-                      //     ),
-                      //   ),
-                      //   child: isLatLong
-                      //       ? const Center(
-                      //     child: Icon(
-                      //       Icons.check_rounded,
-                      //       color: Colors.black,
-                      //     ),
-                      //   )
-                      //       : null,
-                      // ),
+
                     );
                   },
                 )
-
-                // child: ListView.separated(
-                //   separatorBuilder: (context, index) =>
-                //   const SizedBox(height: 10),
-                //   physics: const BouncingScrollPhysics(),
-                //   itemCount: weatherNotifier.searchedListCountries.length,
-                //   itemBuilder: (BuildContext context, int index) {
-                //     PlaceModel place =
-                //     weatherNotifier.searchedListCountries[index];
-                //     bool isLatLong =
-                //     weatherNotifier.checkLatLong(place.lat, place.long);
-                //
-                //     return ListTile(
-                //       onTap: () => weatherNotifier.changeCurrentPlace(
-                //           context, place),
-                //       tileColor: isLatLong
-                //           ? Colors.green[300]
-                //           : themeData.backgroundColor,
-                //       minVerticalPadding: 10,
-                //       title: Text(
-                //         place.display_name,
-                //         style: themeData.textTheme.headlineSmall,
-                //       ),
-                //       shape: RoundedRectangleBorder(
-                //         side: BorderSide(
-                //           color: themeData.backgroundColor,
-                //           width: 1,
-                //         ),
-                //         borderRadius: BorderRadius.circular(20),
-                //       ),
-                //       trailing: Container(
-                //         width: 25,
-                //         height: 25,
-                //         decoration: BoxDecoration(
-                //           borderRadius: BorderRadius.circular(40),
-                //           border: Border.all(
-                //             color: Colors.grey,
-                //             width: 1.5,
-                //           ),
-                //         ),
-                //         child: isLatLong
-                //             ? const Center(
-                //           child: Icon(
-                //             Icons.check_rounded,
-                //             color: Colors.black,
-                //           ),
-                //         )
-                //             : null,
-                //       ),
-                //     );
-                //   },
-                // ),
               )
             ],
           ),

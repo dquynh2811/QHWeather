@@ -7,7 +7,7 @@ Future<dynamic> searchPlaces(String apiKey, String query) async {
   const int limit = 10;
   const int adminLevel = 8;
 
-  print(Uri.parse('$baseUrl?format=$format&limit=$limit&adminLevel=$adminLevel&q=$query&key=$apiKey'));
+  // print(Uri.parse('$baseUrl?format=$format&limit=$limit&adminLevel=$adminLevel&q=$query&key=$apiKey'));
   final response = await http.get(
     Uri.parse('$baseUrl?format=$format&limit=$limit&adminLevel=$adminLevel&q=$query&key=$apiKey'),
   );
