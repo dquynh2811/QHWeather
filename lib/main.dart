@@ -6,7 +6,10 @@ import 'package:qhweather/config/themes.dart';
 import 'package:qhweather/view-model/theme_provider.dart';
 import 'package:qhweather/view-model/weather_provider.dart';
 
+import 'home-widget/home_screen.dart';
+
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MultiProvider(
       providers: [
@@ -33,6 +36,7 @@ class MyApp extends StatelessWidget {
           themeMode: themeNotifier.themMode,
           onGenerateRoute: AppRouter.generateRoute,
           initialRoute: splashRoute,
+          home: MyHomePage()
         );
       },
     );
