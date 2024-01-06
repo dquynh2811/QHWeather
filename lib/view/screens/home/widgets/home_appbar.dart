@@ -57,12 +57,13 @@ class HomeAppbarRowWidget extends StatelessWidget {
               ),
               Text(
                 "Feels like ${weatherModel.feelsLike?.toString() ?? 'N/A'}°, ${weatherModel.weatherDescription ?? 'Unknown weather'}.",
-                style: Theme.of(context).textTheme.bodyText2,
+                style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 15.0),
               ),
               Text(
                 "Air Quality Index: ${weatherModel.airQualityIndex ?? 'N/A'}",
-                style: Theme.of(context).textTheme.bodyText2,
-              ),
+                style: Theme.of(context).textTheme.bodyText2?.copyWith(fontSize: 15.0),
+              )
+              ,
             ],
           ),
         ),

@@ -23,12 +23,13 @@ class HomeScreen extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Padding(padding: EdgeInsets.only(top: 16.0)),
             const HomeAppbarRowWidget(),
             const SizedBox(height: 10),
             Padding(
               padding: EdgeInsets.only(
                 left: elementAlignment.left,
-                right: elementAlignment.left,
+                right: elementAlignment.left
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
